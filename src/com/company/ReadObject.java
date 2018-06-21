@@ -3,6 +3,9 @@ package com.company;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author alishev
@@ -15,13 +18,17 @@ public class ReadObject {
             FileInputStream fis = new FileInputStream("people.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            Person person1 = (Person) ois.readObject();
-            Person person2 = (Person) ois.readObject();
+            int personCount = ois.readInt();
+            Person[] people = new Person[personCount];
+
+            for (int i = 0; i <personCount ; i++) {
+                people[i]= (Person) ois.readObject();
+            }
 
             ois.close();
 
-            System.out.println(person1);
-            System.out.println(person2);
+            System.out.println(Arrays.toString(people));
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

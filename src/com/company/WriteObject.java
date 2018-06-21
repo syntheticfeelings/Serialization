@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author alishev
@@ -11,17 +13,20 @@ public class WriteObject {
 
     public static void main(String[] args) {
 
-        Person person1 = new Person(1, "Bob");
-        Person person2 = new Person(2, "Mike");
+        Person[] people = {new Person(1, "Bob"),new Person(2, "Mike"), new Person(3, "Tom")};
+
 
         try {
             FileOutputStream fos = new FileOutputStream("people.bin");
             ObjectOutputStream ous = new ObjectOutputStream(fos);
 
-            ous.writeObject(person1);
-            ous.writeObject(person2);
+            ous.writeInt(people.length);
 
-            ous.close();
+            for (Person person:people) {
+                ous.writeObject(person);
+            }
+
+            fos.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
